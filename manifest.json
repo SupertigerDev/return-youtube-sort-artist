@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+ 
+  "name": "Return Sort Artist",
+  "version": "0.1.0",
+  "description": "YouTube disabled the ability to sort videos on artist channels. This extension tries to add that back.",
+ 
+  "content_scripts": [{
+    "css": ["styles.css"],
+    "js": ["content.js"],
+    "matches": [
+      "https://*.youtube.com/c/*/videos*",
+      "https://*.youtube.com/c/*/videos*"
+    ]
+  }]
+ 
+}

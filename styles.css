@@ -1,0 +1,10 @@
+.custom-sort-button {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.custom-sort-button.selected {
+  color: white;
+}
