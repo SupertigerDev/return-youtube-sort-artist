@@ -13,8 +13,8 @@
     "css": ["styles.css"],
     "js": ["content.js"],
     "matches": [
-      "https://*.youtube.com/*",
-      "https://*.youtube.com/*"
+      "https://*.youtube.com*",
+      "https://*.youtube.com*"
     ]
   }]
  
