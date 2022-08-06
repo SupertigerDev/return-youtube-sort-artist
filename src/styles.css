@@ -1,0 +1,15 @@
+.custom-sort-button {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  margin-left: 5px;
+  transition: 0.2s;
+}
+
+.custom-sort-button.selected {
+  color: white;
+}
+
+.custom-sort-button:hover {
+  color: white;
+}
