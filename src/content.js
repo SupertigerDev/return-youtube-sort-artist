@@ -18,7 +18,7 @@ async function main () {
   alreadyRan = true;
 
   if (selectedSortOption) {
-    // YouTube gets rid of the sort parameter for artist videos. Why...
+    // YouTube gets rid of the sort parameter for artist channels. Why...
     // this line of code tries to add the parameter back.
     history.pushState(null, null, updateUrlParameter("sort", selectedSortOption));
   }
