@@ -1,14 +1,25 @@
-const selectedSortOption = getUrlParamiter("sort");
+let selectedSortOption = getUrlParameter("sort");
+
+let alreadyRan = false;
 
 async function main () {
 
+  if (!location.pathname.endsWith("/videos")) return;
   await waitForPageToLoad();
-  const sortExists = document.querySelector("yt-sort-filter-sub-menu-renderer");
 
+  // Check if this channel page has the sort option. If it does, don't proceed with this extention.
+  const sortExists = document.querySelector("yt-sort-filter-sub-menu-renderer");
   if (sortExists) return;
 
+  if (alreadyRan) {
+    selectedSortOption = null;
+  }
+
+  alreadyRan = true;
+
   if (selectedSortOption) {
-    // add to browser history
+    // YouTube gets rid of the sort parameter for artist videos. Why...
+    // this line of code tries to add the parameter back.
     history.pushState(null, null, updateUrlParameter("sort", selectedSortOption));
   }
 
@@ -18,10 +29,15 @@ async function main () {
   const sortByNewestButton = createButton("Newest", "dd");
   const sortByOldest = createButton("Oldest", "da");
 
+  sortMenuEl.innerHTML = "";
 
   sortMenuEl.append(sortPopularButton, sortByNewestButton, sortByOldest);
 
 }
+
+document.addEventListener('yt-navigate-start', main);
+
+main();
 
 
 function createButton(text, sort) {
@@ -38,7 +54,6 @@ function createButton(text, sort) {
   return button
 }
 
-
 function waitForPageToLoad() {
   return new Promise((resolve) => {
     const isLoaded = () => !!document.querySelector("ytd-channel-sub-menu-renderer");
@@ -52,15 +67,14 @@ function waitForPageToLoad() {
   })
 };
 
+
 function updateUrlParameter(param, value) {
-  const newUrl = new URL(location.href);
+  // Remove all existing parameters.
+  const newUrl = new URL(location.href.split("?")[0]);
   newUrl.searchParams.set(param, value);
   return newUrl.href;
 }
-function getUrlParamiter(param) {
+function getUrlParameter(param) {
   const url = new URL(location.href);
   return url.searchParams.get(param);
 }
-
-main();
-
