@@ -7,31 +7,33 @@ async function main () {
   if (!location.pathname.endsWith("/videos")) return;
   await waitForPageToLoad();
 
-  // Check if this channel page has the sort option. If it does, don't proceed with this extention.
-  const sortExists = document.querySelector("yt-sort-filter-sub-menu-renderer");
-  if (sortExists) return;
+  const chipsEl = document.querySelector(`yt-formatted-string[title="Popular"]`).parentElement.parentElement;
 
-  if (alreadyRan) {
-    selectedSortOption = null;
-  }
+  const newChip = document.createElement("span");
 
-  alreadyRan = true;
+  newChip.classList.add("sort-oldest")
+  newChip.innerHTML = "Hello!"
+  
+  newChip.style.display = "inline-block";
+  newChip.style.color = "white";
+  newChip.style.background = "#272727";
+  newChip.style.borderRadius = "8px";
+  newChip.style.fontSize = "14px";
+  newChip.style.padding = "8px";
+  newChip.style.paddingLeft = "10px";
+  newChip.style.paddingRight = "10px";
+  newChip.style.marginLeft = "10px";
+  newChip.style.cursor = "pointer";
+  newChip.style.userSelect = "none";
+  newChip.style.transition = "0.2s";
 
-  if (selectedSortOption) {
-    // YouTube gets rid of the sort parameter for artist channels. Why...
-    // this line of code tries to add the parameter back.
-    history.pushState(null, null, updateUrlParameter("sort", selectedSortOption));
-  }
-
-  const sortMenuEl = document.getElementById("sort-menu");
-
-  const sortPopularButton = createButton("Popular", "p");
-  const sortByNewestButton = createButton("Newest", "dd");
-  const sortByOldest = createButton("Oldest", "da");
-
-  sortMenuEl.innerHTML = "";
-
-  sortMenuEl.append(sortPopularButton, sortByNewestButton, sortByOldest);
+  
+  
+  chipsEl.append(newChip)
+  const style = document.createElement("style")
+  style.textContent = ".sort-oldest:hover { background: #3f3f3f !important; }"
+  document.head.appendChild(style)
+  
 
 }
 
@@ -56,7 +58,7 @@ function createButton(text, sort) {
 
 function waitForPageToLoad() {
   return new Promise((resolve) => {
-    const isLoaded = () => !!document.querySelector("ytd-channel-sub-menu-renderer");
+    const isLoaded = () => !!document.querySelector(".style-scope .ytd-feed-filter-chip-bar-renderer");
     
     const interval = setInterval(() => {
       if (isLoaded()) {
