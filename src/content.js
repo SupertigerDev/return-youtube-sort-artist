@@ -9,10 +9,11 @@ async function main () {
 
   const chipsEl = document.querySelector(`yt-formatted-string[title="Popular"]`).parentElement.parentElement;
 
-  const newChip = document.createElement("span");
+  const newChip = document.createElement("a");
 
+  newChip.href = updateUrlParameter("sort", "da");
   newChip.classList.add("sort-oldest")
-  newChip.innerHTML = "Hello!"
+  newChip.innerHTML = "Oldest"
   
   newChip.style.display = "inline-block";
   newChip.style.color = "white";
@@ -26,6 +27,7 @@ async function main () {
   newChip.style.cursor = "pointer";
   newChip.style.userSelect = "none";
   newChip.style.transition = "0.2s";
+  newChip.style.textDecoration = "none";
 
   
   
